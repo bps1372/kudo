@@ -21,7 +21,7 @@
         header {
             background-color: var(--primary-orange);
             color: var(--text-light);
-            padding: 1rem 5%;
+            padding: 0.8rem 5%; /* Sedikit dikurangi agar tidak terlalu tinggi */
             position: fixed;
             width: 100%;
             top: 0;
@@ -30,6 +30,23 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Container untuk Logo dan Tulisan */
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-container img {
+            height: 40px; /* Ukuran logo */
+            width: auto;
+        }
+
+        .brand-container h1 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
         }
 
         nav ul { list-style: none; display: flex; gap: 1.5rem; }
@@ -95,7 +112,10 @@
 <body>
 
     <header>
-        <h1>KUDO</h1>
+        <div class="brand-container">
+            <img src="logo-bps.png" alt="Logo BPS">
+            <h1>KUDO</h1>
+        </div>
         <nav>
             <ul>
                 <li><a href="#informasi">Informasi</a></li>
@@ -110,7 +130,7 @@
         <section id="informasi">
             <h2 class="section-title">Informasi KUDO</h2>
             <div class="info-card">
-                <p><strong>KUDO (Korek Usaha Digital Online)</strong> adalah inovasi pengumpulan data berbasis web scraping untuk memperoleh data unit usaha pada wilayah Kota Solok. Proses ini dilakukan memanfaatkan platform/tools Instant Data Scraper Extension (Chrome), Apify.com, Python & Streamlit. Data usaha yang akan discrapingg mengambil pada platform: </p>
+                <p><strong>KUDO (Korek Usaha Digital Online)</strong> adalah inovasi pengumpulan data berbasis web scraping untuk memperoleh data unit usaha pada wilayah Kota Solok. Proses ini dilakukan memanfaatkan platform/tools Instant Data Scraper Extension (Chrome), Apify.com, Python & Streamlit. Data usaha yang akan discraping mengambil pada platform: </p>
                 <div class="platform-tags">
                     <span class="platform-tag">Google Maps</span>
                     <span class="platform-tag">Instagram</span>
@@ -155,7 +175,6 @@
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // Load GeoJSON Titik Usaha
         fetch('https://raw.githubusercontent.com/bps1372/kudo/main/Data/usahamapsscraping.geojson')
         .then(res => res.json())
         .then(data => {
@@ -171,11 +190,8 @@
                     });
                 },
                 onEachFeature: function(feature, layer) {
-                    // Hanya mengambil Judul/Nama (Title)
                     let p = feature.properties;
                     let nama = p.title || p.name || p.fullName || p.username || "Data Usaha";
-                    
-                    // Popup hanya menampilkan nama saja secara minimalis
                     layer.bindPopup(`<strong style="font-size: 14px;">${nama}</strong>`);
                 }
             }).addTo(map);
@@ -183,7 +199,6 @@
             if (data.features.length > 0) map.fitBounds(geoLayer.getBounds());
         });
 
-        // Load Batas Administrasi (Layer SHP)
         fetch('https://raw.githubusercontent.com/bps1372/kudo/main/Data/Peta') 
         .then(res => res.json())
         .then(geojsonData => {
