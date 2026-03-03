@@ -199,7 +199,7 @@
             if (data.features.length > 0) map.fitBounds(geoLayer.getBounds());
         });
 
-        fetch('https://raw.githubusercontent.com/bps1372/kudo/main/Data/peta') 
+        fetch('https://raw.githubusercontent.com/bps1372/kudo/main/Data/Peta') 
         .then(res => res.json())
         .then(geojsonData => {
             L.geoJSON(geojsonData, {
