@@ -111,7 +111,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Tambahan CSS untuk Label Platform */
+        /* CSS untuk Label Platform */
         .platform-tags {
             display: flex;
             flex-wrap: wrap;
@@ -137,7 +137,32 @@
             transform: translateY(-2px);
         }
 
-        /* Iframe Container for Responsive Embeds */
+        /* Button Link (Ganti Iframe) */
+        .center-content {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background-color: var(--primary-orange);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-link:hover {
+            background-color: var(--dark-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Iframe Container for Responsive Embeds (Masih dipakai untuk Processing) */
         .iframe-container {
             width: 100%;
             height: 80vh;
@@ -145,6 +170,7 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
         }
 
         .iframe-container iframe {
@@ -208,10 +234,10 @@
 
         <section id="scraping">
             <h2 class="section-title">Teknis Scraping</h2>
-            <p class="section-desc">Panduan dan teknis pelaksanaan web scraping yang tertanam langsung di halaman ini.</p>
+            <p class="section-desc">Panduan dan teknis pelaksanaan web scraping dapat diakses melalui portal Canva terpisah.</p>
             
-            <div class="iframe-container">
-                <iframe src="https://kudo-bps1372.my.canva.site/" title="Teknis Scraping KUDO"></iframe>
+            <div class="center-content">
+                <a href="https://kudo-bps1372.my.canva.site/" target="_blank" class="btn-link">Buka Panduan Teknis Scraping</a>
             </div>
         </section>
 
@@ -226,7 +252,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 KUDO - Korek Usaha Digital Online.</p>
+        <p>&copy; 2026 BPS Kota Solok.</p>
     </footer>
 
 </body>
