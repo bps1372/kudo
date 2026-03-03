@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUDO - Inovasi Pengumpulan Data</title>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --primary-orange: #f97316;
+            --dark-orange: #c2410c;
+            --light-orange: #ffedd5;
+            --text-dark: #1f2937;
+            --text-light: #f9fafb;
+            --bg-body: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        header {
+            background-color: var(--primary-orange);
+            color: var(--text-light);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--light-orange);
+        }
+
+        /* Main Content Padding for Fixed Navbar */
+        main {
+            padding-top: 80px; 
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 5%;
+            margin-bottom: 1rem;
+            background-color: white;
+            border-bottom: 5px solid var(--light-orange);
+        }
+
+        .section-title {
+            color: var(--primary-orange);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .section-desc {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+            font-size: 1.1rem;
+            color: #4b5563;
+        }
+
+        /* Informasi KUDO Card */
+        .info-card {
+            background-color: var(--light-orange);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 6px solid var(--primary-orange);
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-card p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Iframe Container for Responsive Embeds */
+        .iframe-container {
+            width: 100%;
+            height: 80vh; /* Takes up 80% of viewport height */
+            border: 2px solid var(--primary-orange);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-top: 4px solid var(--primary-orange);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .iframe-container {
+                height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>KUDO</h1>
+        <nav>
+            <ul>
+                <li><a href="#informasi">Informasi</a></li>
+                <li><a href="#scraping">Teknis Scraping</a></li>
+                <li><a href="#processing">Processing Otomasi</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="informasi">
+            <h2 class="section-title">Informasi KUDO</h2>
+            <div class="info-card">
+                <p><strong>KUDO (Korek Usaha Digital Online)</strong> merupakan sebuah inovasi alur kerja pengumpulan data digital yang dirancang untuk mempermudah dan mengotomatisasi proses akuisisi data.</p>
+                <p>Dengan mengintegrasikan teknologi scraping modern dan sistem pemrosesan otomatis, KUDO mempercepat transformasi data mentah dari berbagai platform online menjadi dataset yang terstruktur dan siap untuk dianalisis.</p>
+            </div>
+        </section>
+
+        <section id="scraping">
+            <h2 class="section-title">Teknis Scraping</h2>
+            <p class="section-desc">Panduan dan teknis pelaksanaan web scraping yang tertanam langsung di halaman ini.</p>
+            
+            <div class="iframe-container">
+                <iframe src="https://kudo-bps1372.my.canva.site/" title="Teknis Scraping KUDO"></iframe>
+            </div>
+        </section>
+
+        <section id="processing">
+            <h2 class="section-title">Processing Otomasi</h2>
+            <p class="section-desc">Dashboard pemrosesan data otomatis menggunakan Streamlit.</p>
+            
+            <div class="iframe-container">
+                <iframe src="https://processing-kudo-bps1372.streamlit.app/?embed=true" title="Processing Otomasi KUDO"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 KUDO - Korek Usaha Digital Online.</p>
+    </footer>
+
+</body>
+</html>
