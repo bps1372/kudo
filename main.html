@@ -156,8 +156,8 @@
         </section>
 
         <section id="data">
-            <h2 class="section-title">Peta Sebaran Lokasi Usaha dari Scraping Google Maps</h2>
-            <p class="section-desc">Visualisasi hasil scraping usaha yang diperoleh dari Google Maps</p>
+            <h2 class="section-title">Peta Sebaran Lokasi Usaha di Kota Solok</h2>
+            <p class="section-desc">Visualisasi Peta Usaha di Kota Solok</p>
             
             <div id="map"></div>
         </section>
@@ -175,7 +175,7 @@
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        fetch('https://raw.githubusercontent.com/bps1372/kudo/main/Data/usahamapsscraping.geojson')
+        fetch('https://raw.githubusercontent.com/bps1372/kudo/main/Data/usaha_sbr.geojson')
         .then(res => res.json())
         .then(data => {
             var geoLayer = L.geoJSON(data, {
