@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUDO - Korek Usaha Digital Online</title>
+    <title>KUDO - Inovasi Pengumpulan Data</title>
     <style>
         /* CSS Reset & Variables */
         :root {
@@ -137,7 +137,7 @@
             transform: translateY(-2px);
         }
 
-        /* Button Link (Ganti Iframe) */
+        /* Button Link */
         .center-content {
             text-align: center;
             margin-top: 2rem;
@@ -162,7 +162,7 @@
             transform: translateY(-2px);
         }
 
-        /* Iframe Container for Responsive Embeds (Masih dipakai untuk Processing) */
+        /* Iframe Container */
         .iframe-container {
             width: 100%;
             height: 80vh;
@@ -210,7 +210,7 @@
                 <li><a href="#informasi">Informasi</a></li>
                 <li><a href="#scraping">Teknis Scraping</a></li>
                 <li><a href="#processing">Processing Otomasi</a></li>
-            </ul>
+                <li><a href="#data">Hasil Data</a></li> </ul>
         </nav>
     </header>
 
@@ -249,10 +249,23 @@
                 <iframe src="https://processing-kudo-bps1372.streamlit.app/?embed=true" title="Processing Otomasi KUDO"></iframe>
             </div>
         </section>
+
+        <section id="data">
+            <h2 class="section-title">Preview Data</h2>
+            <p class="section-desc">Pratinjau dataset hasil scraping (TESTTT.xlsx) yang tersimpan di repositori sistem.</p>
+            
+            <div class="iframe-container">
+                <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/bps1372/kudo/main/Data/TESTTT.xlsx" title="Preview Data KUDO"></iframe>
+            </div>
+            
+            <div class="center-content">
+                <a href="https://github.com/bps1372/kudo/raw/main/Data/TESTTT.xlsx" class="btn-link">Unduh File Excel</a>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 BPS Kota Solok.</p>
+        <p>&copy; 2026 KUDO - Korek Usaha Digital Online.</p>
     </footer>
 
 </body>
