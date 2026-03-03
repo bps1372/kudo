@@ -38,16 +38,19 @@
             align-items: center;
             gap: 12px;
         }
-
         .brand-container img {
-            height: 40px; /* Ukuran logo */
+            height: 40px; 
             width: auto;
+            filter: brightness(0) invert(1); /* Tambahkan ini untuk mengubah logo jadi putih */
         }
 
         .brand-container h1 {
             font-size: 1.5rem;
             letter-spacing: 1px;
         }
+
+        /* Cari bagian ini dan tambahkan baris filter */
+
 
         nav ul { list-style: none; display: flex; gap: 1.5rem; }
         nav a { color: var(--text-light); text-decoration: none; font-weight: 500; }
