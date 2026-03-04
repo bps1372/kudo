@@ -118,6 +118,56 @@
         }
 
         footer { background-color: var(--text-dark); color: white; text-align: center; padding: 1.5rem; }
+
+        /* --- TAMBAHAN KODE UNTUK RESPONSIF DI HP --- */
+        @media (max-width: 768px) {
+            /* Menyesuaikan Header agar turun ke bawah (tidak menumpuk) */
+            header {
+                flex-direction: column;
+                padding: 1rem 5%;
+                gap: 10px;
+            }
+
+            /* Menyesuaikan menu navigasi agar membungkus dengan rapi */
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Menambah jarak atas konten karena ukuran header di HP jadi lebih tinggi */
+            main {
+                padding-top: 120px; 
+            }
+
+            /* Menyesuaikan ukuran teks dan padding section */
+            section {
+                padding: 2.5rem 5%;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .section-desc {
+                font-size: 1rem;
+            }
+
+            /* Menyesuaikan kartu info dan logo di dalamnya */
+            .info-card {
+                padding: 1.2rem;
+            }
+            .logo-kudo-body {
+                max-width: 100%;
+            }
+
+            /* Menyesuaikan tinggi frame otomatisasi dan peta agar tidak terlalu memakan layar HP */
+            .iframe-container {
+                height: 60vh;
+            }
+            #map {
+                height: 400px;
+            }
+        }
     </style>
 </head>
 <body>
