@@ -71,26 +71,82 @@
             margin-top: 0;
         }
 
-        .hero img {
-            max-width: 600px; /* Ukuran diperbesar dari 400px */
-            width: 90%;
+        /* --- ANIMASI BARU: GARIS MERAH KE LOGO --- */
+        .hero-logo-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Ukuran maksimal logo */
+            min-height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 2rem;
-            /* 2. Animasi Flash/Muncul ala PPT */
-            animation: pptFlash 1.5s ease-out; 
         }
 
-      /* Keyframe untuk Efek Flash PPT */
-@keyframes pptFlash {
-    0% { opacity: 0; transform: scale(0.8); filter: brightness(3); }
-    50% { opacity: 0.5; transform: scale(1.05); filter: brightness(2); }
-    100% { opacity: 1; transform: scale(1); filter: brightness(1); }
-}
+        .red-line {
+            position: absolute;
+            width: 15px;
+            height: 4px;
+            background-color: #ff0000; /* Garis Merah */
+            border-radius: 10px;
+            z-index: 10;
+            /* Animasi garis berjalan selama 1.8 detik */
+            animation: lineToLogo 1.8s ease-in-out forwards;
+        }
+
+        .hero-logo-container img {
+            max-width: 100%;
+            width: 90%;
+            opacity: 0; /* Sembunyikan di awal */
+            z-index: 5;
+            /* Muncul setelah animasi garis selesai (delay 1.3 detik) */
+            animation: showLogo 1s ease-out 1.3s forwards; 
+        }
+
+        @keyframes lineToLogo {
+            0% {
+                transform: scale(1, 1);
+                filter: blur(0);
+                opacity: 1;
+            }
+            30% {
+                transform: scale(25, 1); /* Memanjang ke samping menjadi garis */
+                filter: blur(2px);
+                opacity: 1;
+                background-color: #ff0000;
+            }
+            70% {
+                transform: scale(35, 30); /* Membesar ke atas dan bawah */
+                filter: blur(15px); /* Memblur tebal */
+                opacity: 0.9;
+                background-color: var(--primary-orange); /* Transisi warna biar menyatu dengan tema */
+            }
+            100% {
+                transform: scale(45, 40);
+                filter: blur(25px);
+                opacity: 0; /* Menghilang sepenuhnya */
+            }
+        }
+
+        @keyframes showLogo {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+                filter: brightness(2); /* Agak terang sedikit saat muncul */
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: brightness(1);
+            }
+        }
+        /* --- AKHIR ANIMASI BARU --- */
 
         .hero h2 {
             font-size: 2.5rem;
             color: var(--dark-orange);
             margin-bottom: 1rem;
-            animation: fadeInUp 1s ease-out 0.3s both;
+            animation: fadeInUp 1s ease-out 2s both; /* Delay agar muncul setelah logo */
         }
 
         .hero p {
@@ -98,7 +154,7 @@
             color: #4b5563;
             max-width: 700px;
             margin-bottom: 2.5rem;
-            animation: fadeInUp 1s ease-out 0.5s both;
+            animation: fadeInUp 1s ease-out 2.2s both; /* Delay agar muncul setelah judul */
         }
 
         .btn-hero {
@@ -112,34 +168,36 @@
             font-weight: bold;
             transition: 0.3s;
             box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
-            animation: fadeInUp 1s ease-out 0.7s both;
+            animation: fadeInUp 1s ease-out 2.4s both;
         }
 
         /* 3. Gaya untuk Nama Berjalan (Marquee) */
-.marquee-container {
-    width: 100%;
-    background: var(--dark-orange);
-    color: white;
-    padding: 10px 0;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+        .marquee-container {
+            width: 100%;
+            background: var(--dark-orange);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            position: absolute; /* Diposisikan mutlak agar tidak menggeser layout hero */
+            top: 70px; /* Tepat di bawah navbar */
+            left: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
 
-.marquee-text {
-    display: inline-block;
-    white-space: nowrap;
-    font-weight: bold;
-    font-size: 1.2rem;
-    animation: marquee 15s linear infinite;
-}
+        .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 1.1rem;
+            animation: marquee 20s linear infinite;
+        }
 
-@keyframes marquee {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-      
+        @keyframes marquee {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+        
         .btn-hero:hover {
             background-color: var(--dark-orange);
             transform: translateY(-3px);
@@ -156,7 +214,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        main { padding-top: 0; } /* Padding atas dihapus karena hero sudah full screen */
+        main { padding-top: 0; } 
         
         /* Memberikan padding pada section agar saat scroll dari navbar tidak tertutup header */
         section { 
@@ -226,9 +284,11 @@
             header { flex-direction: column; padding: 1rem 5%; gap: 10px; }
             nav ul { flex-wrap: wrap; justify-content: center; gap: 1rem; font-size: 0.9rem; }
             
+            .marquee-container { top: 100px; } /* Sesuaikan tinggi navbar di HP */
+            
             .hero h2 { font-size: 1.8rem; }
             .hero p { font-size: 1rem; }
-            .hero img { max-width: 80%; }
+            .hero-logo-container { min-height: 150px; }
             
             section { padding: 8rem 5% 2.5rem 5%; }
             .section-title { font-size: 1.5rem; }
@@ -266,7 +326,10 @@
                 </div>
             </div>
         
-            <img src="https://raw.githubusercontent.com/bps1372/kudo/main/Data/Logo%20KUDO%20(1).png" alt="Logo KUDO Besar">
+            <div class="hero-logo-container">
+                <div class="red-line"></div>
+                <img src="https://raw.githubusercontent.com/bps1372/kudo/main/Data/Logo%20KUDO%20(1).png" alt="Logo KUDO Besar">
+            </div>
             
             <h2>Korek Usaha Digital Online</h2>
             <p>Inovasi pengumpulan data berbasis web scraping untuk memperoleh sebaran unit usaha di wilayah Kota Solok.</p>
