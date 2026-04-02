@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUDO - Inovasi Pengumpulan Data</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --primary-orange: #f97316;
+            --dark-orange: #c2410c;
+            --light-orange: #ffedd5;
+            --text-dark: #1f2937;
+            --text-light: #f9fafb;
+            --bg-body: #f3f4f6;
+        }
+
+        /* Smooth scrolling untuk efek klik tombol beranda ke bawah */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-dark); line-height: 1.6; }
+
+        header {
+            background-color: var(--primary-orange);
+            color: var(--text-light);
+            padding: 0.8rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .brand-container img {
+            height: 40px; 
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .brand-container h1 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        nav ul { list-style: none; display: flex; gap: 1.5rem; }
+        nav a { color: var(--text-light); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        nav a:hover { color: #ffe4e6; }
+
+        /* --- HERO SECTION (Profil Depan) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, var(--light-orange) 100%);
+            padding: 0 5%;
+            margin-top: 0;
+        }
+
+        .hero img {
+            max-width: 600px; /* Ukuran diperbesar dari 400px */
+            width: 90%;
+            margin-bottom: 2rem;
+            /* 2. Animasi Flash/Muncul ala PPT */
+            animation: pptFlash 1.5s ease-out; 
+        }
+
+      /* Keyframe untuk Efek Flash PPT */
+@keyframes pptFlash {
+    0% { opacity: 0; transform: scale(0.8); filter: brightness(3); }
+    50% { opacity: 0.5; transform: scale(1.05); filter: brightness(2); }
+    100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+}
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: var(--dark-orange);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .btn-hero {
+            display: inline-block;
+            background-color: var(--primary-orange);
+            color: white;
+            padding: 1rem 3rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        /* 3. Gaya untuk Nama Berjalan (Marquee) */
+.marquee-container {
+    width: 100%;
+    background: var(--dark-orange);
+    color: white;
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.marquee-text {
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 1.2rem;
+    animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+      
+        .btn-hero:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        main { padding-top: 0; } /* Padding atas dihapus karena hero sudah full screen */
+        
+        /* Memberikan padding pada section agar saat scroll dari navbar tidak tertutup header */
+        section { 
+            padding: 6rem 5% 4rem 5%; 
+            margin-bottom: 1rem; 
+            background-color: white; 
+            border-bottom: 5px solid var(--light-orange); 
+        }
+
+        .section-title { color: var(--primary-orange); font-size: 2rem; margin-bottom: 1rem; text-align: center; text-transform: uppercase; }
+        .section-desc { text-align: center; max-width: 800px; margin: 0 auto 2rem auto; font-size: 1.1rem; color: #4b5563; }
+
+        .info-card {
+            background-color: var(--light-orange);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 6px solid var(--primary-orange);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .platform-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
+        .platform-tag {
+            background-color: white;
+            color: var(--dark-orange);
+            border: 1px solid var(--primary-orange);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 80vh;
+            border: 2px solid var(--primary-orange);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 2rem;
+            background-color: #f3f4f6;
+        }
+
+        /* Khusus iframe spreadsheet agar tidak terlalu tinggi */
+        .iframe-container.spreadsheet {
+            height: 60vh;
+        }
+
+        #map {
+            width: 100%;
+            height: 550px;
+            border: 3px solid var(--primary-orange);
+            border-radius: 8px;
+            margin-top: 1rem;
+            background: #f3f4f6;
+        }
+
+        .leaflet-tile-container img {
+            box-shadow: 0 0 1px rgba(0,0,0,0.05);
+            outline: none;
+            border: none;
+        }
+
+        footer { background-color: var(--text-dark); color: white; text-align: center; padding: 1.5rem; }
+
+        /* --- RESPONSIF DI HP --- */
+        @media (max-width: 768px) {
+            header { flex-direction: column; padding: 1rem 5%; gap: 10px; }
+            nav ul { flex-wrap: wrap; justify-content: center; gap: 1rem; font-size: 0.9rem; }
+            
+            .hero h2 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            .hero img { max-width: 80%; }
+            
+            section { padding: 8rem 5% 2.5rem 5%; }
+            .section-title { font-size: 1.5rem; }
+            .section-desc { font-size: 1rem; }
+            .info-card { padding: 1.2rem; }
+            .iframe-container { height: 60vh; }
+            .iframe-container.spreadsheet { height: 50vh; }
+            #map { height: 400px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-container">
+            <img src="https://raw.githubusercontent.com/bps1372/kudo/main/Data/logo-bps.png" alt="Logo BPS">
+            <h1>KUDO</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#informasi">Informasi</a></li>
+                <li><a href="#scraping">Teknis</a></li>
+                <li><a href="#processing">Otomasi</a></li>
+                <li><a href="#data">Data & Peta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="beranda" class="hero">
+            <div class="marquee-container">
+                <div class="marquee-text">
+                    KOREK USAHA DIGITAL ONLINE (KUDO) - BPS KOTA SOLOK - TRANSFORMASI DATA DIGITAL UNTUK INDONESIA MAJU
+                </div>
+            </div>
+        
+            <img src="https://raw.githubusercontent.com/bps1372/kudo/main/Data/Logo%20KUDO%20(1).png" alt="Logo KUDO Besar">
+            
+            <h2>Korek Usaha Digital Online</h2>
+            <p>Inovasi pengumpulan data berbasis web scraping untuk memperoleh sebaran unit usaha di wilayah Kota Solok.</p>
+            <a href="#informasi" class="btn-hero">Mulai Jelajahi Data</a>
+        </section>
+
+        <section id="informasi">
+            <h2 class="section-title">Tentang KUDO</h2>
+            <div class="info-card">
+                <p><strong>KUDO (Korek Usaha Digital Online)</strong> adalah inovasi pengumpulan data berbasis web scraping untuk memperoleh data unit usaha pada wilayah Kota Solok. Proses ini dilakukan memanfaatkan platform/tools Instant Data Scraper Extension (Chrome), Apify.com, Python & Streamlit. Data usaha yang akan discraping mengambil pada platform: </p>
+                <div class="platform-tags">
+                    <span class="platform-tag">Google Maps</span>
+                    <span class="platform-tag">Instagram</span>
+                    <span class="platform-tag">Facebook</span>
+                    <span class="platform-tag">Tokopedia</span>
+                    <span class="platform-tag">Shopee</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="scraping">
+            <h2 class="section-title">Teknis Proses Scraping</h2>
+            <p class="section-desc">Berikut panduan teknis melakukan web scraping dalam bentuk dokumen PDF.</p>
+            <div class="iframe-container">
+                <iframe src="https://bps1372.github.io/kudo/Data/Present%20KUDO%20BPS%201372.pdf" width="100%" height="100%" style="border:none;"></iframe>
+            </div>
+        </section>
+
+        
+        <section id="processing">
+            <h2 class="section-title">Processing Otomasi</h2>
+            <p class="section-desc">Dashboard otomasi pemrosesan data KUDO berbasis Python & Streamlit.</p>
+            <div class="iframe-container">
+                <iframe src="https://processing-kudo.streamlit.app/?embed=true" width="100%" height="100%" style="border:none;"></iframe>
+            </div>
+        </section>
+
+        <section id="data">
+            <h2 class="section-title">Data & Peta Sebaran Lokasi Usaha</h2>
+            <p class="section-desc">Visualisasi data usaha di Kota Solok dari hasil web scraping beserta peta lokasinya.</p>
+            
+            <h3 style="color: var(--dark-orange); margin-bottom: 0.5rem; text-align: center;">Data Hasil Scraping</h3>
+            <div class="iframe-container spreadsheet">
+                
+                <iframe src="https://docs.google.com/spreadsheets/d/1sReNbcUP8L6iqsB6AKf8yAxb9PzfFnVgKu3GTKDuVMc/preview"  width="100%" height="100%" style="border:none;"></iframe>
+
+            </div>
+
+            <h3 style="color: var(--dark-orange); margin-top: 3rem; margin-bottom: 0.5rem; text-align: center;">Peta Usaha Kota Solok</h3>
+            <div id="map"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 KUDO - Korek Usaha Digital Online | BPS Kota Solok</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Inisialisasi Peta
+        var map = L.map('map').setView([-0.947, 100.417], 86);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Memuat GeoJSON Titik Usaha
+        fetch('https://raw.githubusercontent.com/bps1372/kudo/main/Data/usahamapsscraping.geojson')
+        .then(res => res.json())
+        .then(data => {
+            var geoLayer = L.geoJSON(data, {
+                pointToLayer: function(feature, latlng) {
+                    return L.circleMarker(latlng, {
+                        radius: 8,
+                        fillColor: "#f97316",
+                        color: "#fff",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.9
+                    });
+                },
+                onEachFeature: function(feature, layer) {
+                    let p = feature.properties;
+                    let nama = p.title || p.name || p.fullName || p.username || "Data Usaha";
+                    layer.bindPopup(`<strong style="font-size: 14px;">${nama}</strong>`);
+                }
+            }).addTo(map);
+            
+            if (data.features.length > 0) map.fitBounds(geoLayer.getBounds());
+        });
+
+        // Memuat GeoJSON Batas Wilayah
+        fetch('https://raw.githubusercontent.com/bps1372/kudo/main/Data/Peta') 
+        .then(res => res.json())
+        .then(geojsonData => {
+            L.geoJSON(geojsonData, {
+                style: { color: "#2563eb", weight: 2, fillOpacity: 0.05 }
+            }).addTo(map);
+        }).catch(e => console.log("Batas SHP tidak ditemukan"));
+    </script>
+</body>
+</html>
